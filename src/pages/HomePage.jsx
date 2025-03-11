@@ -3,7 +3,7 @@ import { useState } from "react";
 import { FaArrowRight } from "react-icons/fa";
 import { FaArrowLeft } from "react-icons/fa";
 import { Swiper, SwiperSlide } from "swiper/react";
-import { Autoplay, EffectCoverflow, Pagination } from "swiper/modules";
+import { Autoplay, EffectCoverflow } from "swiper/modules";
 import "swiper/css";
 import "swiper/css/pagination";
 import "swiper/css/effect-coverflow";
@@ -66,7 +66,7 @@ export const HomePage = () => {
         <Dialog.Root>
           <Dialog.Trigger asChild>
             <button className="flex items-center justify-center rounded-3xl w-1/3 h-[100px] bg-slate-700 border-1 border-black text-4xl cursor-pointer text-white font-bold transition-all duration-300 hover:scale-105 hover:border-slate-300 hover:bg-slate-800">
-              ПОДОБРАТЬ ФИЛЬМ
+              ПОДОБРАТЬ СЕРИАЛ
             </button>
           </Dialog.Trigger>
           <FormComponent />
@@ -86,6 +86,7 @@ const FormComponent = () => {
     Ending: "",
     Pref: "",
   });
+  
   const handleRadioChange = (e) => {
     setFormState((p) => {
       return {
@@ -94,6 +95,16 @@ const FormComponent = () => {
       };
     });
   };
+  
+  const handleTextChange = (e) => {
+    setFormState((p) => {
+      return {
+        ...p,
+        [e.target.name]: e.target.value,
+      };
+    });
+  };
+  
   const pages = {
     1: (
       <div className="flex flex-col text-xl">
@@ -154,28 +165,237 @@ const FormComponent = () => {
         </label>
       </div>
     ),
+    2: (
+      <div className="flex flex-col text-xl">
+        <h2>В какой компании вы будете смотреть фильм?</h2>
+        <label>
+          <input
+            name="Company"
+            type="radio"
+            value="Alone"
+            checked={formState.Company === "Alone"}
+            onChange={handleRadioChange}
+          />
+          Один
+        </label>
+        <label>
+          <input
+            name="Company"
+            type="radio"
+            value="Friends"
+            checked={formState.Company === "Friends"}
+            onChange={handleRadioChange}
+          />
+          С друзьями
+        </label>
+        <label>
+          <input
+            name="Company"
+            type="radio"
+            value="Family"
+            checked={formState.Company === "Family"}
+            onChange={handleRadioChange}
+          />
+          С семьей
+        </label>
+        <label>
+          <input
+            name="Company"
+            type="radio"
+            value="Partner"
+            checked={formState.Company === "Partner"}
+            onChange={handleRadioChange}
+          />
+          С партнером (девушка/парень)
+        </label>
+      </div>
+    ),
+    3: (
+      <div className="flex flex-col text-xl">
+        <h2>Сколько времени у вас есть на просмотр?</h2>
+        <label>
+          <input
+            name="Time"
+            type="radio"
+            value="LessThanHour"
+            checked={formState.Time === "LessThanHour"}
+            onChange={handleRadioChange}
+          />
+          Меньше часа
+        </label>
+        <label>
+          <input
+            name="Time"
+            type="radio"
+            value="OneToTwo"
+            checked={formState.Time === "OneToTwo"}
+            onChange={handleRadioChange}
+          />
+          1-2 часа
+        </label>
+        <label>
+          <input
+            name="Time"
+            type="radio"
+            value="MoreThanTwo"
+            checked={formState.Time === "MoreThanTwo"}
+            onChange={handleRadioChange}
+          />
+          Более 2 часов
+        </label>
+      </div>
+    ),
+    4: (
+      <div className="flex flex-col text-xl">
+        <h2>Хотите ли вы что-то новое или предпочитаете проверенные фильмы?</h2>
+        <label>
+          <input
+            name="New"
+            type="radio"
+            value="New"
+            checked={formState.New === "New"}
+            onChange={handleRadioChange}
+          />
+          Новое (что-то необычное)
+        </label>
+        <label>
+          <input
+            name="New"
+            type="radio"
+            value="Proven"
+            checked={formState.New === "Proven"}
+            onChange={handleRadioChange}
+          />
+          Проверенное (классика или популярное)
+        </label>
+      </div>
+    ),
+    5: (
+      <div className="flex flex-col text-xl">
+        <h2>Какой уровень напряженности вы предпочитаете?</h2>
+        <label>
+          <input
+            name="Thrill"
+            type="radio"
+            value="Light"
+            checked={formState.Thrill === "Light"}
+            onChange={handleRadioChange}
+          />
+          Легкий и расслабляющий
+        </label>
+        <label>
+          <input
+            name="Thrill"
+            type="radio"
+            value="Moderate"
+            checked={formState.Thrill === "Moderate"}
+            onChange={handleRadioChange}
+          />
+          Умеренный
+        </label>
+        <label>
+          <input
+            name="Thrill"
+            type="radio"
+            value="Intense"
+            checked={formState.Thrill === "Intense"}
+            onChange={handleRadioChange}
+          />
+          Интенсивный и напряженный
+        </label>
+      </div>
+    ),
+    6: (
+      <div className="flex flex-col text-xl">
+        <h2>Хотите ли вы фильм с неожиданной развязкой?</h2>
+        <label>
+          <input
+            name="Ending"
+            type="radio"
+            value="Yes"
+            checked={formState.Ending === "Yes"}
+            onChange={handleRadioChange}
+          />
+          Да
+        </label>
+        <label>
+          <input
+            name="Ending"
+            type="radio"
+            value="No"
+            checked={formState.Ending === "No"}
+            onChange={handleRadioChange}
+          />
+          Нет
+        </label>
+        <label>
+          <input
+            name="Ending"
+            type="radio"
+            value="DontCare"
+            checked={formState.Ending === "DontCare"}
+            onChange={handleRadioChange}
+          />
+          Не важно
+        </label>
+      </div>
+    ),
+    7: (
+      <div className="flex flex-col text-xl">
+        <h2>Предпочитаете ли вы фильмы с определенным актером или режиссером?</h2>
+        <p className="text-sm text-gray-600 mb-2">(Введите имя, если есть конкретные предпочтения)</p>
+        <input
+          type="text"
+          name="Pref"
+          value={formState.Pref}
+          onChange={handleTextChange}
+          className="border border-gray-300 rounded px-3 py-2 mt-1"
+          placeholder="Например: Том Хэнкс, Кристофер Нолан..."
+        />
+      </div>
+    ),
   };
+  
   const [page, setPage] = useState(1);
+  
+  const handleSubmit = () => {
+    console.log("Отправка данных:", formState);
+  };
+  
   return (
     <Dialog.Portal>
-      <Dialog.Overlay className="fixed inset-0 bg-black/50">
-        <Dialog.Content className="fixed left-1/2 top-1/2 w-full max-w-md -translate-x-1/2 -translate-y-1/2 rounded-lg bg-white p-6 shadow-lg">
-          <Dialog.Title className="font-bold">ТУТ ВОПРОСЫ TBA</Dialog.Title>
+      <Dialog.Overlay className="fixed inset-0 bg-black/50 z-[999]">
+        <Dialog.Content className="fixed left-1/2 top-1/2 w-full max-w-md -translate-x-1/2 -translate-y-1/2 rounded-lg bg-white p-6 shadow-lg z-[1000]">
+          <Dialog.Close className="absolute right-4 top-4 text-gray-500 hover:text-gray-700">
+            ✕
+          </Dialog.Close>
+          <Dialog.Title className="font-bold">
+            {page === 1 ? "Подбор фильма" : `Вопрос ${page} из ${Object.keys(pages).length}`}
+          </Dialog.Title>
           {pages[page]}
           <div className="w-full flex justify-between mt-10 items-center">
             <FaArrowLeft
-              className="scale-200"
+              className={`scale-200 ${page === 1 ? 'invisible' : 'cursor-pointer'}`}
               onClick={() => {
                 setPage((p) => Math.max(p - 1, 1));
               }}
             />
-            <div>{page}</div>
-            <FaArrowRight
-              className="scale-200"
-              onClick={() => {
-                setPage((p) => Math.min(p + 1, 9));
-              }}
-            />
+            <div>{page} из {Object.keys(pages).length}</div>
+            {page === Object.keys(pages).length ? (
+              <button 
+                onClick={handleSubmit}
+                className="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700"
+              >
+                Подобрать
+              </button>
+            ) : (
+              <FaArrowRight
+                className="scale-200 cursor-pointer"
+                onClick={() => {
+                  setPage((p) => Math.min(p + 1, Object.keys(pages).length));
+                }}
+              />
+            )}
           </div>
         </Dialog.Content>
       </Dialog.Overlay>
@@ -189,7 +409,9 @@ const SliderComponent = ({ title, poster }) => {
       style={{ backgroundImage: `url(${poster})` }}
       className={`w-2/3 h-[600px] bg-white flex items-center justify-center mx-auto bg-cover bg-no-repeat bg-center`}
     >
-      <span className="text-white text-7xl"> {title} </span>
+      <div className="absolute inset-0 bg-black opacity-50 "></div>
+
+      <div className="relative px-6 py-2 text-7xl text-white z-100">{title}</div>
     </div>
   );
 };
